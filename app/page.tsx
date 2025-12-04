@@ -1,22 +1,26 @@
+import type { ReactNode } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { InventoryTab } from "@/components/inventory/InventoryTab";
 import { sampleItems } from "@/data/sampleItems";
 import { sampleScenarios } from "@/data/sampleScenarios";
 
-const tabDefinitions = [
+type TabDefinition = {
+  value: string;
+  label: string;
+  content: ReactNode;
+};
+
+const tabDefinitions: TabDefinition[] = [
   {
     value: "inventory",
     label: `Inventory (${sampleItems.length})`,
-    content: (
-      <p className="text-base text-muted-foreground">
-        Sample items loaded: {sampleItems.length}
-      </p>
-    ),
+    content: <InventoryTab items={sampleItems} />,
   },
   {
     value: "scenarios",
     label: `Scenarios (${sampleScenarios.length})`,
     content: (
-      <div className="space-y-2 text-base text-muted-foreground">
+      <div className="space-y-2">
         <p>Scenario samples:</p>
         <ul className="list-disc pl-6">
           {sampleScenarios.map((scenario) => (
@@ -26,9 +30,13 @@ const tabDefinitions = [
       </div>
     ),
   },
-  { value: "actions", label: "Actions", content: "Actions placeholder." },
-  { value: "donors", label: "Donors", content: "Donor reference to be added." },
-  { value: "maps", label: "Maps", content: "Maps and layouts are on the way." },
+  { value: "actions", label: "Actions", content: <p>Actions placeholder.</p> },
+  {
+    value: "donors",
+    label: "Donors",
+    content: <p>Donor reference to be added.</p>,
+  },
+  { value: "maps", label: "Maps", content: <p>Maps and layouts are on the way.</p> },
 ];
 
 export default function HomePage() {
